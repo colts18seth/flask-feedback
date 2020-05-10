@@ -6,14 +6,38 @@
 
 
 {% block content %}
-<div class="container">
+<div class="container bg-info">
+    <h1>Info:</h1>
     <p>Username: {{ user.username }}</p>
     <p>Email: {{ user.email }}</p>
-    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+    <p class="pb-4">Name: {{ user.first_name }} {{ user.last_name }}</p>
+</div>
+<div class="container bg-warning">
+    <h1>Feedback:</h1>
+    <ol>
+        {% for feedback in feedback %}
+        <li class="pb-5">
+            <p class="m-0"><b>Title:</b> {{ feedback.title }}</p>
+            <p class="m-0"><b>Content:</b> {{ feedback.content }}</p>
+            <small>By: {{ feedback.user.username }}</small>
+            {% if feedback.user.username == user.username %}
+            <div class="row pt-2">
+                <form action="/feedback/{{ feedback.id }}/update">
+                    <button type="submit" class="btn btn-info mr-3">Edit</button>
+                </form>
+                <form action="/feedback/{{ feedback.id }}/delete" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
 </div>
 
+
 <div class="container">
-    <form class="m-3" action="#">
+    <form class="m-3" action="/users/{{ user.username }}/feedback/add">
         <button class="btn btn-primary">Add Feedback</button>
     </form>
     <form class="m-3" action="/users/{{ user.username }}/delete" method="POST">

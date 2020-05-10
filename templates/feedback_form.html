@@ -1,21 +1,17 @@
 {% extends 'base.html' %}
 
-{% block nav %}
-<li class="nav-item">
-    <a class="nav-link" href="/register">Register</a>
-</li>
+{% block title %}
+<h1 class="display-1 text-center">Add Feedback</h1>
+<p class="text-center">by: {{ user.first_name }}</p>
 {% endblock %}
 
-{% block title %}
-<h1 class="display-1 text-center">Login</h1>
-{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <form action="/login" method="POST">
+    <form action="/users/{{ user.username }}/feedback/add" method="POST">
         {{ form.hidden_tag() }}
         {% for field in form if field.widget.input_type != 'hidden' %}
-        <div class="form-group row mt-4">
+        <div class="form-group row">
             <div class="col-sm-2 col-form-label">
                 {{ field.label }}
             </div>
@@ -26,11 +22,11 @@
 
         <span>
             {% for error in field.errors %}
-            <span class="text-danger">{{ error }}</span>
+            <span class="m-2 text-danger">{{ error }}</span>
             {% endfor %}
         </span>
         {% endfor %}
-        <button class="btn btn-info" type="submit">Login</button>
+        <button class="btn btn-info" type="submit">Submit</button>
     </form>
 </div>
 {% endblock %}

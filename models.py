@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship, backref
 from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
@@ -53,5 +54,4 @@ class Feedback(db.Model):
     content = db.Column(db.String, nullable=False)
     username = db.Column(db.String,
                                            db.ForeignKey('users.username'), nullable=False)
-
-    user = db.relationship("User", backref="feedback")
+    user = relationship("User", backref=backref("feedback", cascade="all, delete-orphan"))
