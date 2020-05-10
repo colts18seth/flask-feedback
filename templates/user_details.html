@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1 class="display-1 text-center m-5">Welcome {{ user.first_name}}!</h1>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+</div>
+
+<div class="container">
+    <form class="m-3" action="#">
+        <button class="btn btn-primary">Add Feedback</button>
+    </form>
+    <form class="m-3" action="/users/{{ user.username }}/delete" method="POST">
+        <button class="btn btn-danger">Delete Account</button>
+    </form>
+
+</div>
+{% endblock %}
